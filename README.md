@@ -48,7 +48,7 @@ A revolutionary quantum-cryptographic AI simulation system that implements a qua
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/qSHA256.git
+git clone https://github.com/oracleagent/qSHA256.git
 cd qSHA256
 ```
 
