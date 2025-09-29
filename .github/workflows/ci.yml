@@ -34,6 +34,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install pytest pytest-cov ruff bandit
+        pip install -e .
     
     - name: Lint with ruff
       run: |
@@ -72,6 +73,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install safety
+        pip install -e .
     
     - name: Check for known security vulnerabilities
       run: |
