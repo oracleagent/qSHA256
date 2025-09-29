@@ -1,9 +1,29 @@
 """
-Utility functions for quantum state analysis and metrics.
+EXPERIMENTAL QUANTUM SHA-256 UTILITY FUNCTIONS - NOT SECURE
 
-This module provides functions to calculate entropy, coherence, and other
-quantum state properties for analyzing quantum circuits.
+⚠️  WARNING: This module contains experimental quantum implementations of SHA-256
+    utility functions for educational and research purposes only.
+
+⚠️  DO NOT USE FOR PRODUCTION CRYPTOGRAPHY - These implementations are not
+    cryptographically secure and should never be used in real applications.
+
+⚠️  FOR DEMONSTRATION ONLY - These functions show quantum state analysis
+    and metrics for quantum circuits, but they are not suitable for any
+    security-critical applications.
+
+This module is completely separate from the main qSHA256 secure library.
+Use qsha256.secure for production cryptographic operations.
 """
+
+import warnings
+
+warnings.warn(
+    "You are importing experimental quantum SHA-256 utility functions. "
+    "These are NOT SECURE and should only be used for educational purposes. "
+    "Use qsha256.secure for production cryptography.",
+    UserWarning,
+    stacklevel=2
+)
 
 import numpy as np
 from typing import Union
@@ -14,6 +34,8 @@ from qiskit.quantum_info import Statevector, DensityMatrix
 def calculate_entropy(statevector: Statevector) -> float:
     """
     Calculate the von Neumann entropy of a quantum state.
+    
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
     
     Args:
         statevector: The quantum state to analyze
@@ -37,6 +59,8 @@ def calculate_entropy(statevector: Statevector) -> float:
 def calculate_coherence(statevector: Statevector) -> float:
     """
     Calculate the coherence of a quantum state.
+    
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
     
     Coherence is measured as the sum of absolute values of off-diagonal
     elements of the density matrix.
@@ -63,6 +87,8 @@ def calculate_state_purity(statevector: Statevector) -> float:
     """
     Calculate the purity of a quantum state.
     
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
+    
     Purity is defined as Tr(ρ²) where ρ is the density matrix.
     
     Args:
@@ -83,6 +109,8 @@ def calculate_state_purity(statevector: Statevector) -> float:
 def calculate_entanglement_entropy(statevector: Statevector, partition: int = None) -> float:
     """
     Calculate the entanglement entropy for a bipartition of the system.
+    
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
     
     Args:
         statevector: The quantum state to analyze
@@ -106,6 +134,8 @@ def get_circuit_metrics(circuit: QuantumCircuit) -> dict:
     """
     Get basic metrics about a quantum circuit.
     
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
+    
     Args:
         circuit: The quantum circuit to analyze
         
@@ -124,6 +154,8 @@ def calculate_quantum_volume(circuit: QuantumCircuit) -> float:
     """
     Calculate a simplified quantum volume metric.
     
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
+    
     Args:
         circuit: The quantum circuit to analyze
         
@@ -140,6 +172,8 @@ def calculate_quantum_volume(circuit: QuantumCircuit) -> float:
 def analyze_state_evolution(circuit: QuantumCircuit) -> dict:
     """
     Analyze the evolution of quantum states in a circuit.
+    
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
     
     Args:
         circuit: The quantum circuit to analyze

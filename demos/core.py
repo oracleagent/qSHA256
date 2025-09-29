@@ -1,9 +1,29 @@
 """
-Core quantum gate implementations for SHA-256 operations.
+EXPERIMENTAL QUANTUM SHA-256 CORE FUNCTIONS - NOT SECURE
 
-This module contains the fundamental quantum gate implementations for SHA-256
-components including XOR, AND, Ch (Choose), Maj (Majority), and sigma functions.
+⚠️  WARNING: This module contains experimental quantum implementations of SHA-256
+    components for educational and research purposes only.
+
+⚠️  DO NOT USE FOR PRODUCTION CRYPTOGRAPHY - These implementations are not
+    cryptographically secure and should never be used in real applications.
+
+⚠️  FOR DEMONSTRATION ONLY - These functions show quantum circuit implementations
+    of SHA-256 operations using Qiskit, but they are not suitable for any
+    security-critical applications.
+
+This module is completely separate from the main qSHA256 secure library.
+Use qsha256.secure for production cryptographic operations.
 """
+
+import warnings
+
+warnings.warn(
+    "You are importing experimental quantum SHA-256 core functions. "
+    "These are NOT SECURE and should only be used for educational purposes. "
+    "Use qsha256.secure for production cryptography.",
+    UserWarning,
+    stacklevel=2
+)
 
 from typing import List, Union
 from qiskit import QuantumCircuit
@@ -13,6 +33,8 @@ from qiskit.circuit import Qubit
 def quantum_xor(circuit: QuantumCircuit, a: Qubit, b: Qubit, output: Qubit) -> None:
     """
     Quantum XOR gate using CNOTs.
+    
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
     
     Implements: output = a ⊕ b
     
@@ -29,6 +51,8 @@ def quantum_xor(circuit: QuantumCircuit, a: Qubit, b: Qubit, output: Qubit) -> N
 def quantum_and(circuit: QuantumCircuit, a: Qubit, b: Qubit, output: Qubit, ancilla: Qubit) -> None:
     """
     Quantum AND gate using Toffoli gate.
+    
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
     
     Implements: output = a ∧ b
     
@@ -47,6 +71,8 @@ def quantum_and(circuit: QuantumCircuit, a: Qubit, b: Qubit, output: Qubit, anci
 def quantum_ch(circuit: QuantumCircuit, x: Qubit, y: Qubit, z: Qubit, output: Qubit, ancilla: Qubit) -> None:
     """
     Quantum implementation of the Ch (Choose) function from SHA-256.
+    
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
     
     Implements: Ch(x,y,z) = (x ∧ y) ⊕ (¬x ∧ z)
     
@@ -74,6 +100,8 @@ def quantum_ch(circuit: QuantumCircuit, x: Qubit, y: Qubit, z: Qubit, output: Qu
 def quantum_maj(circuit: QuantumCircuit, x: Qubit, y: Qubit, z: Qubit, output: Qubit, ancilla: List[Qubit]) -> None:
     """
     Quantum implementation of the Maj (Majority) function from SHA-256.
+    
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
     
     Implements: Maj(x,y,z) = (x ∧ y) ⊕ (x ∧ z) ⊕ (y ∧ z)
     
@@ -106,6 +134,8 @@ def quantum_maj(circuit: QuantumCircuit, x: Qubit, y: Qubit, z: Qubit, output: Q
 def quantum_sigma0(circuit: QuantumCircuit, x: List[Qubit], output: List[Qubit], ancilla: List[Qubit]) -> None:
     """
     Quantum implementation of Σ0 (Sigma0) function from SHA-256.
+    
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
     
     Implements: Σ0(x) = ROTR^2(x) ⊕ ROTR^13(x) ⊕ ROTR^22(x)
     
@@ -166,6 +196,8 @@ def quantum_sigma1(circuit: QuantumCircuit, x: List[Qubit], output: List[Qubit],
     """
     Quantum implementation of Σ1 (Sigma1) function from SHA-256.
     
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
+    
     Implements: Σ1(x) = ROTR^6(x) ⊕ ROTR^11(x) ⊕ ROTR^25(x)
     
     Args:
@@ -222,6 +254,8 @@ def apply_quantum_parallelism(circuit: QuantumCircuit, qubits: List[Qubit], dept
     """
     Applies quantum parallelism using entanglement and superposition.
     
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
+    
     Args:
         circuit: The quantum circuit to add gates to
         qubits: List of qubits to apply parallelism to
@@ -243,6 +277,8 @@ def apply_quantum_error_correction(circuit: QuantumCircuit, data_qubits: List[Qu
                                  syndrome_qubits: List[Qubit]) -> None:
     """
     Applies quantum error correction using stabilizer codes.
+    
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
     
     Args:
         circuit: The quantum circuit to add gates to

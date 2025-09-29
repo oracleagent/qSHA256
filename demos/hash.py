@@ -1,9 +1,29 @@
 """
-Quantum SHA-256 hash function implementation.
+EXPERIMENTAL QUANTUM SHA-256 HASH IMPLEMENTATION - NOT SECURE
 
-This module assembles the core quantum gates into SHA-256 round functions
-and provides a complete quantum circuit implementation.
+⚠️  WARNING: This module contains experimental quantum implementations of SHA-256
+    hash function components for educational and research purposes only.
+
+⚠️  DO NOT USE FOR PRODUCTION CRYPTOGRAPHY - These implementations are not
+    cryptographically secure and should never be used in real applications.
+
+⚠️  FOR DEMONSTRATION ONLY - This class shows quantum circuit implementations
+    of SHA-256 operations using Qiskit, but it is not suitable for any
+    security-critical applications.
+
+This module is completely separate from the main qSHA256 secure library.
+Use qsha256.secure for production cryptographic operations.
 """
+
+import warnings
+
+warnings.warn(
+    "You are importing experimental quantum SHA-256 hash implementation. "
+    "These are NOT SECURE and should only be used for educational purposes. "
+    "Use qsha256.secure for production cryptography.",
+    UserWarning,
+    stacklevel=2
+)
 
 from typing import List, Optional
 import numpy as np
@@ -20,8 +40,12 @@ class QuantumSHA256:
     """
     A quantum implementation of SHA-256 hash function components.
     
+    ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
+    ⚠️  DO NOT USE FOR PRODUCTION CRYPTOGRAPHY.
+    ⚠️  FOR DEMONSTRATION ONLY.
+    
     This class provides methods to construct quantum circuits that implement
-    SHA-256-like operations. This is for educational purposes only.
+    SHA-256-like operations using Qiskit. This is for educational purposes only.
     """
     
     # SHA-256 constants
@@ -48,10 +72,19 @@ class QuantumSHA256:
         """
         Initialize the Quantum SHA-256 implementation.
         
+        ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
+        
         Args:
             num_qubits: Number of qubits for the quantum circuit
             enable_error_correction: Whether to include error correction
         """
+        warnings.warn(
+            "QuantumSHA256 is for educational purposes only. NOT SECURE. "
+            "Use qsha256.secure for production cryptography.",
+            UserWarning,
+            stacklevel=2
+        )
+        
         self.num_qubits = num_qubits
         self.enable_error_correction = enable_error_correction
         self.circuit = None
@@ -59,6 +92,8 @@ class QuantumSHA256:
     def create_circuit(self, message_bits: List[int]) -> QuantumCircuit:
         """
         Create a quantum circuit implementing SHA-256 components.
+        
+        ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
         
         Args:
             message_bits: Message bits to encode into the circuit
@@ -95,17 +130,6 @@ class QuantumSHA256:
             ancilla_qubits = [circuit.qubits[5], circuit.qubits[6]]
             quantum_maj(circuit, circuit.qubits[0], circuit.qubits[1], circuit.qubits[2], circuit.qubits[3], ancilla_qubits)
         
-        # Apply Sigma functions (simplified for smaller circuits)
-        # Skip sigma functions for now as they require 32 qubits
-        # if self.num_qubits >= 12:
-        #     # Use first 4 qubits for sigma operations
-        #     input_qubits = circuit.qubits[:4]
-        #     output_qubits = circuit.qubits[4:8]
-        #     ancilla_qubits = circuit.qubits[8:12]
-        #     
-        #     # Apply simplified sigma0
-        #     quantum_sigma0(circuit, input_qubits, output_qubits, ancilla_qubits)
-        
         # Apply quantum enhancements if enabled
         if self.enable_error_correction and self.num_qubits >= 8:
             data_qubits = circuit.qubits[:4]
@@ -124,6 +148,8 @@ class QuantumSHA256:
     def get_state_analysis(self) -> dict:
         """
         Analyze the final quantum state of the circuit.
+        
+        ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
         
         Returns:
             Dictionary containing state analysis results
@@ -168,6 +194,8 @@ class QuantumSHA256:
     def simulate(self, shots: int = 1024) -> dict:
         """
         Simulate the quantum circuit.
+        
+        ⚠️  WARNING: This is for educational purposes only. NOT SECURE.
         
         Args:
             shots: Number of simulation shots

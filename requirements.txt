@@ -1,16 +1,20 @@
-# Quantum SHA-256 Dependencies
-# Core quantum computing framework
-qiskit>=0.45.0
+# qSHA256 Secure Cryptographic Library Dependencies
 
-# Numerical computing
-numpy>=1.21.0
+# Core cryptographic library
+cryptography>=41.0.0
 
-# Visualization
-matplotlib>=3.5.0
+# Testing framework
+pytest>=7.0.0
+pytest-cov>=4.0.0
 
-# Scientific computing
-scipy>=1.7.0
+# Code quality and security
+ruff>=0.1.0
+bandit>=1.7.0
+safety>=2.3.0
 
-# Optional: Enhanced visualization (if available)
-# seaborn>=0.11.0
-# networkx>=2.6.0
+# Development dependencies (optional)
+# For running experimental demos (NOT SECURE)
+# qiskit>=0.45.0
+# numpy>=1.21.0
+# matplotlib>=3.5.0
+# scipy>=1.7.0

@@ -1,237 +1,244 @@
-# qSHA256
+# qSHA256 - Cryptographically Secure Cryptographic Library
 
-A quantum implementation of SHA-256 hash function components using Qiskit.
+[![CI](https://github.com/oracleagent/qSHA256/actions/workflows/ci.yml/badge.svg)](https://github.com/oracleagent/qSHA256/actions/workflows/ci.yml)
+[![PyPI version](https://badge.fury.io/py/qsha256.svg)](https://badge.fury.io/py/qsha256)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-This project demonstrates how to implement SHA-256-like operations on quantum circuits using Qiskit. It includes quantum gate implementations for core SHA-256 functions, state analysis utilities, and visualization tools.
+**qSHA256 now provides cryptographically secure primitives built on pyca/cryptography and hashlib.**
 
-**Important: This is for educational purposes only and not suitable for production cryptography.**
+A Python library providing secure cryptographic primitives including SHA-256 hashing, HMAC authentication, HKDF key derivation, AES-GCM authenticated encryption, and Ed25519 digital signatures. All implementations use vetted cryptographic libraries and include strict input validation for production use.
 
 ## Features
 
-### Core Quantum Components
-- **Quantum XOR**: Implementation using CNOT gates
-- **Quantum AND**: Implementation using Toffoli gates  
-- **Quantum Ch (Choose)**: SHA-256's choose function
-- **Quantum Maj (Majority)**: SHA-256's majority function
-- **Quantum Sigma functions**: Σ0 and Σ1 rotation functions
-- **Error Correction**: Basic quantum error correction using stabilizer codes
-- **Parallelism**: Quantum parallelism using entanglement
-
-### Analysis Tools
-- **Entropy Calculation**: Von Neumann entropy of quantum states
-- **Coherence Analysis**: Quantum coherence measurement
-- **State Purity**: Quantum state purity calculation
-- **Circuit Metrics**: Depth, size, and gate count analysis
-- **Quantum Volume**: Simplified quantum volume metric
-
-### Visualization
-- **State Evolution**: Real-time quantum state analysis
-- **Circuit Metrics**: Visual representation of circuit properties
-- **Measurement Outcomes**: Distribution of simulation results
+- **SHA-256 Hashing**: Secure hash function using Python's `hashlib`
+- **HMAC Authentication**: Message authentication with constant-time comparison
+- **HKDF Key Derivation**: Extract and expand key material securely
+- **AES-GCM Encryption**: Authenticated encryption with associated data
+- **Ed25519 Signatures**: Fast, secure digital signatures
+- **Input Validation**: Strict type checking and size limits
+- **Production Ready**: Built on cryptographically secure foundations
 
 ## Installation
 
-### Prerequisites
-- Python 3.8 or higher
-- pip (Python package installer)
-
-### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/oracleagent/qSHA256.git
-cd qSHA256
+pip install qsha256
 ```
 
-### Step 2: Create Virtual Environment (Recommended)
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+## Quick Start
+
+### SHA-256 Hashing
+
+```python
+import qsha256
+
+# Hash some data
+data = b"Hello, World!"
+hash_result = qsha256.secure_sha256(data)
+print(f"SHA-256: {hash_result.hex()}")
 ```
 
-### Step 3: Install Dependencies
-```bash
-pip install -r requirements.txt
+### HMAC Authentication
+
+```python
+import qsha256
+
+# Generate a key
+key = qsha256.generate_key(32)
+
+# Create HMAC
+message = b"Authenticate this message"
+hmac_tag = qsha256.secure_hmac(key, message)
+
+# Verify HMAC
+is_valid = qsha256.secure_hmac_verify(key, message, hmac_tag)
+print(f"HMAC valid: {is_valid}")
 ```
 
-Or install manually:
-```bash
-pip install qiskit numpy matplotlib
+### AES-GCM Encryption
+
+```python
+import qsha256
+
+# Generate encryption key
+key = qsha256.generate_key(32)  # 256-bit key
+
+# Encrypt data
+plaintext = b"Sensitive information"
+nonce, ciphertext = qsha256.aes_gcm_encrypt(key, plaintext)
+
+# Decrypt data
+decrypted = qsha256.aes_gcm_decrypt(key, nonce, ciphertext)
+print(f"Decrypted: {decrypted}")
 ```
 
-### Step 4: Verify Installation
-```bash
-python -c "import qiskit, numpy, matplotlib; print('Installation successful!')"
+### Ed25519 Digital Signatures
+
+```python
+import qsha256
+
+# Generate key pair
+private_key, public_key = qsha256.ed25519_generate_keypair()
+
+# Sign a message
+message = b"Sign this document"
+signature = qsha256.ed25519_sign(private_key, message)
+
+# Verify signature
+is_valid = qsha256.ed25519_verify(public_key, message, signature)
+print(f"Signature valid: {is_valid}")
 ```
 
-## Usage
+### HKDF Key Derivation
 
-### Quick Start - Run the Demo
-```bash
-python examples/demo.py
-```
+```python
+import qsha256
 
-### What the Demo Does
-1. Creates a quantum circuit with SHA-256 components
-2. Loads a sample message ("Hello, Quantum!") into the circuit
-3. Applies quantum gates (XOR, AND, Ch, Maj functions)
-4. Analyzes the quantum state (entropy, coherence, purity)
-5. Simulates the circuit with 1024 measurement shots
-6. Generates visualization plots
+# Derive keys from input key material
+salt = b"random_salt"
+info = b"context_info"
+ikm = b"input_key_material"
 
-### Expected Output
-```
-=== Quantum SHA-256 Demo ===
-
-Sample message: 'Hello, Quantum!'
-Message bits (first 32): [0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, ...]
-Total message length: 256 bits
-
-Creating quantum SHA-256 circuit...
-Circuit created with 8 qubits
-Circuit depth: 20
-Circuit size: 43
-Gate counts: OrderedDict({'cx': 13, 'rz': 8, 'ccx': 6, 'x': 4, 'reset': 4, 'h': 4, 'crz': 4})
-
-Analyzing quantum state...
-Quantum entropy: 2.0000
-Quantum coherence: 3.0000
-State purity: 1.0000
-Entanglement entropy: 2.0000
-Quantum volume: 34.5754
-
-Simulating quantum circuit...
-Simulation completed with 1024 shots
-Most frequent measurement: 00000000...
-Number of unique outcomes: 1
-
-Generating visualizations...
-Visualization saved as 'quantum_sha256_analysis.png'
-
-Demo completed! Check the generated plots.
-```
-
-### Generated Files
-- `quantum_sha256_analysis.png` - Comprehensive analysis plots
-- `quantum_sha256_circuit.png` - Circuit diagram (if pylatexenc is installed)
-
-### Alternative Usage Methods
-```bash
-# Make executable and run
-chmod +x examples/demo.py
-./examples/demo.py
-
-# Run from any directory
-python /path/to/qSHA256/examples/demo.py
-
-# Run as module
-python -m examples.demo
-```
-
-## Project Structure
-
-```
-qSHA256/
-├── qsha256/                 # Main package
-│   ├── __init__.py         # Package initialization
-│   ├── core.py             # Core quantum gate functions
-│   ├── hash.py             # SHA-256 circuit assembly
-│   └── utils.py            # Analysis and utility functions
-├── examples/               # Example scripts
-│   └── demo.py             # Main demonstration script
-├── requirements.txt        # Python dependencies
-└── README.md              # This file
+derived_key = qsha256.hkdf_extract_expand(salt, info, ikm, 32)
+print(f"Derived key: {derived_key.hex()}")
 ```
 
 ## API Reference
 
-### Core Functions (`qsha256.core`)
+### Hash Functions
 
-```python
-from qsha256 import quantum_xor, quantum_and, quantum_ch, quantum_maj
+#### `secure_sha256(data: bytes) -> bytes`
+Compute SHA-256 hash of input data.
+- **data**: Input bytes to hash
+- **Returns**: 32-byte SHA-256 hash
 
-# Basic quantum gates
-quantum_xor(circuit, qubit_a, qubit_b, output_qubit)
-quantum_and(circuit, qubit_a, qubit_b, output_qubit, ancilla_qubit)
+### Authentication
 
-# SHA-256 specific functions
-quantum_ch(circuit, x, y, z, output, ancilla)  # Choose function
-quantum_maj(circuit, x, y, z, output, ancilla)  # Majority function
-quantum_sigma0(circuit, x, output, ancilla)     # Sigma0 function
-quantum_sigma1(circuit, x, output, ancilla)     # Sigma1 function
+#### `secure_hmac(key: bytes, data: bytes) -> bytes`
+Compute HMAC-SHA256 authentication tag.
+- **key**: HMAC key (minimum 16 bytes)
+- **data**: Data to authenticate
+- **Returns**: 32-byte HMAC tag
+
+#### `secure_hmac_verify(key: bytes, data: bytes, tag: bytes) -> bool`
+Verify HMAC tag using constant-time comparison.
+- **key**: HMAC key
+- **data**: Original data
+- **tag**: HMAC tag to verify
+- **Returns**: True if valid, False otherwise
+
+### Key Generation
+
+#### `generate_key(length: int = 32) -> bytes`
+Generate cryptographically secure random key.
+- **length**: Key length in bytes (default: 32)
+- **Returns**: Random key bytes
+
+### Key Derivation
+
+#### `hkdf_extract_expand(salt: bytes, info: bytes, ikm: bytes, length: int = 32) -> bytes`
+Extract and expand key material using HKDF-SHA256.
+- **salt**: Salt for key extraction
+- **info**: Context information
+- **ikm**: Input key material
+- **length**: Output key length in bytes
+- **Returns**: Derived key material
+
+### Authenticated Encryption
+
+#### `aes_gcm_encrypt(key: bytes, plaintext: bytes, aad: bytes = None) -> tuple[bytes, bytes]`
+Encrypt data using AES-GCM authenticated encryption.
+- **key**: AES key (16, 24, or 32 bytes)
+- **plaintext**: Data to encrypt
+- **aad**: Additional authenticated data (optional)
+- **Returns**: (nonce, ciphertext_and_tag)
+
+#### `aes_gcm_decrypt(key: bytes, nonce: bytes, ct: bytes, aad: bytes = None) -> bytes`
+Decrypt data using AES-GCM authenticated encryption.
+- **key**: AES key
+- **nonce**: Nonce used for encryption
+- **ct**: Ciphertext and tag
+- **aad**: Additional authenticated data (optional)
+- **Returns**: Decrypted plaintext
+
+### Digital Signatures
+
+#### `ed25519_generate_keypair() -> tuple[bytes, bytes]`
+Generate Ed25519 key pair.
+- **Returns**: (private_key, public_key) both 32 bytes
+
+#### `ed25519_sign(private_key: bytes, message: bytes) -> bytes`
+Sign a message using Ed25519.
+- **private_key**: 32-byte private key
+- **message**: Message to sign
+- **Returns**: 64-byte signature
+
+#### `ed25519_verify(public_key: bytes, message: bytes, signature: bytes) -> bool`
+Verify Ed25519 signature.
+- **public_key**: 32-byte public key
+- **message**: Original message
+- **signature**: 64-byte signature
+- **Returns**: True if valid, False otherwise
+
+## Security Features
+
+- **Input Validation**: All functions validate input types and enforce size limits (default: 1 MB)
+- **Constant-Time Operations**: HMAC verification uses constant-time comparison
+- **Secure Random**: Key generation uses `secrets.token_bytes()`
+- **Vetted Libraries**: Built on `hashlib`, `cryptography`, and `hmac` modules
+- **Error Handling**: Clear error messages for invalid inputs
+
+## Development
+
+### Running Tests
+
+```bash
+# Install development dependencies
+pip install -r requirements.txt
+
+# Run tests
+pytest tests/ -v
+
+# Run with coverage
+pytest tests/ --cov=qsha256 --cov-report=html
 ```
 
-### Hash Implementation (`qsha256.hash`)
+### Code Quality
 
-```python
-from qsha256 import QuantumSHA256
+```bash
+# Lint with ruff
+ruff check qsha256/ tests/
 
-# Create quantum SHA-256 instance
-qsha = QuantumSHA256(num_qubits=256, enable_error_correction=True)
-
-# Build circuit with message
-message_bits = [0, 1, 0, 1, 0, 1, ...]  # Your message
-circuit = qsha.create_circuit(message_bits)
-
-# Analyze quantum state
-analysis = qsha.get_state_analysis()
-print(f"Entropy: {analysis['entropy']:.4f}")
-print(f"Coherence: {analysis['coherence']:.4f}")
-
-# Simulate circuit
-results = qsha.simulate(shots=1024)
-print(f"Most frequent outcome: {results['most_frequent']}")
+# Security check with bandit
+bandit -r qsha256/
 ```
 
-### Analysis Tools (`qsha256.utils`)
+## Experimental Demos
 
-```python
-from qsha256.utils import calculate_entropy, calculate_coherence, analyze_state_evolution
+⚠️ **WARNING**: The `demos/` folder contains experimental quantum SHA-256 implementations for educational purposes only. These are **NOT SECURE** and should never be used in production.
 
-# Calculate quantum state properties
-entropy = calculate_entropy(statevector)
-coherence = calculate_coherence(statevector)
-
-# Comprehensive state analysis
-metrics = analyze_state_evolution(circuit)
+To run experimental demos:
+```bash
+cd demos/
+python demo.py
 ```
-
-## Educational Use Cases
-
-This project is designed for educational purposes and can be used to:
-
-1. **Learn Quantum Computing**: Understand how classical algorithms can be translated to quantum circuits
-2. **Study SHA-256**: Explore the internal structure of SHA-256 hash function
-3. **Quantum Gate Design**: Learn how to implement complex functions using basic quantum gates
-4. **State Analysis**: Practice analyzing quantum states and circuits
-5. **Visualization**: Generate plots and diagrams for quantum circuit analysis
-
-## Limitations
-
-- **Not Cryptographically Secure**: This implementation is for educational purposes only
-- **Simplified Implementation**: Many optimizations and edge cases are not included
-- **Simulation Only**: Designed for quantum simulators, not real quantum hardware
-- **Limited Message Size**: Message processing is simplified for demonstration
-- **Performance**: Not optimized for speed or efficiency
 
 ## Contributing
 
-Contributions are welcome! Areas for improvement include:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Ensure all tests pass
+6. Submit a pull request
 
-- More efficient quantum gate implementations
-- Additional error correction schemes
-- Better visualization tools
-- Performance optimizations
-- Documentation improvements
+## Security
+
+For security-related issues, please see [SECURITY.md](SECURITY.md) for our vulnerability disclosure policy.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+## Changelog
 
-- [Qiskit](https://qiskit.org/) team for the quantum computing framework
-- SHA-256 specification and reference implementations
-- Quantum computing education community
-
-## Disclaimer
-
-This software is provided for educational and research purposes only. It is not intended for use in production cryptographic systems. The authors make no guarantees about the security or correctness of this implementation.
+See [CHANGELOG.md](CHANGELOG.md) for version history and changes.
