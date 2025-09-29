@@ -4,7 +4,7 @@ A quantum implementation of SHA-256 hash function components using Qiskit.
 
 This project demonstrates how to implement SHA-256-like operations on quantum circuits using Qiskit. It includes quantum gate implementations for core SHA-256 functions, state analysis utilities, and visualization tools.
 
-**⚠️ Important: This is for educational purposes only and not suitable for production cryptography.**
+**Important: This is for educational purposes only and not suitable for production cryptography.**
 
 ## Features
 
@@ -32,35 +32,50 @@ This project demonstrates how to implement SHA-256-like operations on quantum ci
 ## Installation
 
 ### Prerequisites
-- Python 3.7+
-- pip
+- Python 3.8 or higher
+- pip (Python package installer)
 
-### Dependencies
+### Step 1: Clone the Repository
 ```bash
-pip install qiskit numpy matplotlib scipy
+git clone https://github.com/yourusername/qSHA256.git
+cd qSHA256
 ```
 
-Or install from requirements file:
+### Step 2: Create Virtual Environment (Recommended)
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+### Step 3: Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-## Quick Start
+Or install manually:
+```bash
+pip install qiskit numpy matplotlib
+```
 
-### Run the Demo
+### Step 4: Verify Installation
+```bash
+python -c "import qiskit, numpy, matplotlib; print('Installation successful!')"
+```
+
+## Usage
+
+### Quick Start - Run the Demo
 ```bash
 python examples/demo.py
 ```
 
-This will:
-1. Create a quantum circuit with SHA-256 components
-2. Run the circuit on a simulator
-3. Analyze the quantum state (entropy, coherence, purity)
-4. Generate visualizations showing:
-   - Quantum state metrics
-   - Circuit complexity
-   - Measurement outcomes
-   - Quantum volume analysis
+### What the Demo Does
+1. Creates a quantum circuit with SHA-256 components
+2. Loads a sample message ("Hello, Quantum!") into the circuit
+3. Applies quantum gates (XOR, AND, Ch, Maj functions)
+4. Analyzes the quantum state (entropy, coherence, purity)
+5. Simulates the circuit with 1024 measurement shots
+6. Generates visualization plots
 
 ### Expected Output
 ```
@@ -71,27 +86,44 @@ Message bits (first 32): [0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0, 1, ...]
 Total message length: 256 bits
 
 Creating quantum SHA-256 circuit...
-Circuit created with 896 qubits
-Circuit depth: 45
-Circuit size: 1234
+Circuit created with 8 qubits
+Circuit depth: 20
+Circuit size: 43
+Gate counts: OrderedDict({'cx': 13, 'rz': 8, 'ccx': 6, 'x': 4, 'reset': 4, 'h': 4, 'crz': 4})
 
 Analyzing quantum state...
-Quantum entropy: 2.4567
-Quantum coherence: 1.2345
-State purity: 0.9876
-Entanglement entropy: 2.3456
-Quantum volume: 12.34
+Quantum entropy: 2.0000
+Quantum coherence: 3.0000
+State purity: 1.0000
+Entanglement entropy: 2.0000
+Quantum volume: 34.5754
 
 Simulating quantum circuit...
 Simulation completed with 1024 shots
-Most frequent measurement: 1010101010101010...
-Number of unique outcomes: 156
+Most frequent measurement: 00000000...
+Number of unique outcomes: 1
 
 Generating visualizations...
 Visualization saved as 'quantum_sha256_analysis.png'
-Circuit diagram saved as 'quantum_sha256_circuit.png'
 
 Demo completed! Check the generated plots.
+```
+
+### Generated Files
+- `quantum_sha256_analysis.png` - Comprehensive analysis plots
+- `quantum_sha256_circuit.png` - Circuit diagram (if pylatexenc is installed)
+
+### Alternative Usage Methods
+```bash
+# Make executable and run
+chmod +x examples/demo.py
+./examples/demo.py
+
+# Run from any directory
+python /path/to/qSHA256/examples/demo.py
+
+# Run as module
+python -m examples.demo
 ```
 
 ## Project Structure
