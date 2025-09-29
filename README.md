@@ -37,7 +37,7 @@ This project demonstrates how to implement SHA-256-like operations on quantum ci
 
 ### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/yourusername/qSHA256.git
+git clone https://github.com/oracleagent/qSHA256.git
 cd qSHA256
 ```
 
