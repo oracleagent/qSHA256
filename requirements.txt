@@ -1,0 +1,16 @@
+# Quantum SHA-256 Dependencies
+# Core quantum computing framework
+qiskit>=0.45.0
+
+# Numerical computing
+numpy>=1.21.0
+
+# Visualization
+matplotlib>=3.5.0
+
+# Scientific computing
+scipy>=1.7.0
+
+# Optional: Enhanced visualization (if available)
+# seaborn>=0.11.0
+# networkx>=2.6.0
